@@ -1,0 +1,41 @@
+@import "./base.scss";
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.item-center {
+    align-items: center;
+    justify-content: center;
+}
+
+// 动态生成gap-1到gap-10的样式
+@for $i from 1 through 10 {
+    .gap-#{$i} {
+        gap: #{$i * 10}px;
+    }
+}
+
+// 让其下所有子元素在hover时都变为cursor
+.cursor {
+    cursor: pointer;
+    & > * {
+        cursor: pointer;
+    }
+}
