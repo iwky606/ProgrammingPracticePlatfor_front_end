@@ -32,6 +32,30 @@
     }
 }
 
+@for $i from 1 through 10 {
+    .flex-grow-#{$i} {
+        flex-grow: #{$i};
+    }
+}
+
+.width-100 {
+    width: 100% !important;
+}
+
+.child-width-100 {
+    & > * {
+        width: 100%;
+    }
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.margin-0 {
+    margin: 0;
+}
+
 // 让其下所有子元素在hover时都变为cursor
 .cursor {
     cursor: pointer;
