@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.18",
     "@primevue/themes": "^4.0.0-rc.1",
     "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.0-rc.1",
+    "prismjs": "^1.29.0",
     "vue": "^3.4.21",
+    "vue-codemirror": "^6.1.1",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

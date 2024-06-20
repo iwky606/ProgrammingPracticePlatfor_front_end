@@ -12,6 +12,11 @@ export function useRouteQuery() {
     };
 }
 
+export function useRouteParams() { 
+    const route = useRoute();
+    return route.params;
+}
+
 export function useGoto() {
     const router = useRouter();
     return (path) => router.push({ path });

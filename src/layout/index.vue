@@ -4,7 +4,9 @@
             <Navbar />
         </div>
         <div class="main-router-view">
-            <slot></slot>
+            <ScrollArea>
+                <slot></slot>
+            </ScrollArea>
         </div>
     </div>
     <Teleport to="body">
@@ -15,7 +17,7 @@
 <script setup>
 import Toast from 'primevue/toast';
 import Navbar from './Navbar.vue';
-
+import ScrollArea from '@/components/ScrollArea.vue';
 </script>
 
 <style lang="scss" scoped>
