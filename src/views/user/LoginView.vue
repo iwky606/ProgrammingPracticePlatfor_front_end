@@ -4,7 +4,7 @@
         <div>
             <Logo style="width: 70px; height: 80px" />
         </div>
-        <InfoForm @button-click="handleClick" />
+        <InfoForm mode="login" @button-click="handleClick" />
         <div class="flex-grow-1"></div>
     </div>
 </template>

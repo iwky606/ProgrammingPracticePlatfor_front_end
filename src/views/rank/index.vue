@@ -1,20 +1,52 @@
 <template>
     <div class="rank-container">
-        <ScrollArea>
-            <RankList :ranklist="[]" :row="rows" :loading="loading" />
-        </ScrollArea>
+        <List :values="values" :row="row" :loading="loading" :total="total" @update:paginator="handlePageChange"
+            :page-options="pageOptions" :columns="columns" />
     </div>
 </template>
 
 <script setup>
-import RankList from '@/components/rank/RankList.vue';
-import ScrollArea from '@/components/ScrollArea.vue';
+import List from '@/components/List.vue';
+import { onMounted } from 'vue';
 
 import { ref } from 'vue';
 
-const rows = ref(30);
+const row = ref(0);
 const loading = ref(true);
-const ranklist = ref([]);
+const values = ref([]);
+const total = ref(0);
+const pageOptions = ref([10, 20, 30])
+const columns = ref([
+    { field: 'user', header: '用户名' },
+    { field: 'accept', header: '解题数' },
+    { field: 'submit', header: '提交次数' },
+    { field: 'accuracy', header: '准确率' }
+])
+
+const handlePageChange = (event) => {
+    const page = event.page;
+    const rows = event.rows;
+    getRankList(page, rows);
+}
+
+const getRankList = (page = 1, rows = 10) => {
+    row.value = rows;
+    values.value = [];
+    for (let i = 0; i < rows; i++) {
+        values.value.push({
+            user: 'user' + i,
+            accept: Math.floor(Math.random() * 100),
+            submit: Math.floor(Math.random() * 100),
+            accuracy: Math.floor(Math.random() * 100) + '%'
+        });
+    }
+}
+
+onMounted(() => {
+    getRankList();
+    total.value = 100 * 6;
+    loading.value = false;
+})
 </script>
 
 <style lang="scss" scoped>
