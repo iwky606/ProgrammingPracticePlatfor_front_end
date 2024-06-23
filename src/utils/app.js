@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import VMdEditor from '@kangc/v-md-editor';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-json';
@@ -21,9 +22,13 @@ VMdPreview.use(vuepressTheme, {
     Prism,
 });
 
+VMdEditor.use(vuepressTheme, {
+    Prism,
+});
+
 app.use(createPinia())
-app.use(router)
 app.use(VMdPreview)
+app.use(VMdEditor)
 
 const auth = useAuthInfoStore()
 
@@ -35,6 +40,8 @@ app.use(PrimeVue, {
     ripple: true
 });
 app.use(ToastService);
+app.use(router)
+
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !auth.isAdmin) {
@@ -43,6 +50,7 @@ router.beforeEach((to, from, next) => {
     }
     next()
 })
+console.log(router.getRoutes())
 
 app.directive('ripple', Ripple);
 

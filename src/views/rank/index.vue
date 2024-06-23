@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+import api from '@/api';
 import List from '@/components/List.vue';
 import { onMounted } from 'vue';
 
@@ -32,26 +33,22 @@ const handlePageChange = (event) => {
 const getRankList = (page = 1, rows = 10) => {
     row.value = rows;
     values.value = [];
-    for (let i = 0; i < rows; i++) {
-        values.value.push({
-            user: 'user' + i,
-            accept: Math.floor(Math.random() * 100),
-            submit: Math.floor(Math.random() * 100),
-            accuracy: Math.floor(Math.random() * 100) + '%'
-        });
-    }
+    api.test.getRankList({ rows, page }).then(res => {
+        values.value = res.data.values;
+        total.value = res.data.total;
+    }).finally(() => {
+        loading.value = false;
+    })
 }
 
 onMounted(() => {
     getRankList();
-    total.value = 100 * 6;
-    loading.value = false;
 })
 </script>
 
 <style lang="scss" scoped>
 .rank-container {
-    padding: 0 100px;
+    // padding: 0 100px;
     margin-top: 20px;
 }
 </style>

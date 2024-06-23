@@ -4,10 +4,12 @@
             <Logo class="cursor" @click="goto('/')" />
         </template>
         <template #item="{ item, props }">
-            <a v-ripple class="flex items-center" v-bind="props.action" @click="goto(item.router)"
+            <a v-ripple class="flex items-center" v-bind="props.action"
+                @click="() => { if (item.router) goto(item.router) }"
                 v-if="!item.admin || (item.admin && auth.isAdmin)">
                 <i :class="item.icon" style=""></i>
                 <span class=" ml-2">{{ item.label }}</span>
+                <span v-if="item.hasSubmenu" class="pi pi-fw pi-angle-down ml-2" />
             </a>
         </template>
         <template #end>
@@ -59,8 +61,21 @@ const items = ref([
     {
         label: '管理',
         icon: 'pi pi-cog',
-        router: '/admin',
-        admin: true
+        // router: '/admin',
+        admin: true,
+        hasSubmenu: true,
+        items: [
+            {
+                label: '题目管理',
+                icon: 'pi pi-list',
+                router: '/admin/questions'
+            },
+            {
+                label: '题目集管理',
+                icon: 'pi pi-folder',
+                router: '/admin/set'
+            }
+        ]
     }
 ])
 

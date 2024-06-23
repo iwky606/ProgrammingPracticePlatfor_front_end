@@ -7,6 +7,7 @@ import RankView from "@/views/rank/index.vue";
 import QuestionView from "@/views/question/QuestionView.vue";
 import QuestionListView from "@/views/question/index.vue";
 import AdminView from "@/views/admin/index.vue";
+import AdminQuestionEditView from "@/views/admin/QuestionEditView.vue";
 import AdminQuestionView from "@/views/admin/QuestionView.vue";
 import AdminQuestionSetView from "@/views/admin/QuestionSetView.vue";
 
@@ -54,25 +55,31 @@ const router = createRouter({
       component: AdminView,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: '/admin/questions',
+      name: 'AdminQuestion',
+      component: AdminQuestionView,
+      meta: {
+        requiresAuth: true
       },
-      children: [
-        {
-          path: 'question',
-          name: 'AdminQuestion',
-          component: AdminQuestionView,
-          meta: {
-            requiresAuth: true
-          },
-        },
-        {
-          path: 'set',
-          name: 'AdminQuestionSet',
-          component: AdminQuestionSetView,
-          meta: {
-            requiresAuth: true
-          },
-        }
-      ]
+    },
+    {
+      path: '/admin/question/:id',
+      name: 'AdminQuestionEdit',
+      component: AdminQuestionEditView,
+      meta: {
+        requiresAuth: true
+      },
+    },
+    {   
+      path: '/admin/set',
+      name: 'AdminQuestionSet',
+      component: AdminQuestionSetView,
+      meta: {
+        requiresAuth: true
+      },
     },
     {
       path: '/forbidden',

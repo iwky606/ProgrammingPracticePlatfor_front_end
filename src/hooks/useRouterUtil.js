@@ -21,3 +21,8 @@ export function useGoto() {
     const router = useRouter();
     return (path) => router.push({ path });
 }
+
+export function useBack() {
+    const router = useRouter();
+    return () => router.go(-1);
+}

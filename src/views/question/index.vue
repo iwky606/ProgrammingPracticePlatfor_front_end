@@ -62,7 +62,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .rank-container {
-    padding: 0 100px;
+    // padding: 0 100px;
     margin-top: 20px;
 }
 </style>

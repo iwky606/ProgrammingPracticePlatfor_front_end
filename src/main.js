@@ -4,6 +4,7 @@ import 'highlight.js/styles/github.css'
 
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 import '@kangc/v-md-editor/lib/style/preview.css';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
 
 // Prism
 // highlight code
