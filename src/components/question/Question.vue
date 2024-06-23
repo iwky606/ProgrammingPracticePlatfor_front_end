@@ -24,5 +24,7 @@ const text = computed(() => props.question);
     height: 100%;
     border: #5556562f solid 1px;
     border-radius: 5px;
+
+    overflow: auto;
 }
 </style>

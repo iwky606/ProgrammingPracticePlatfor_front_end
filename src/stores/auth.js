@@ -8,7 +8,7 @@ export const useAuthInfoStore = defineStore('authInfo', () => {
         GUEST: 2
     }
 
-    const auth = ref(AUTHTYPE.GUEST)
+    const auth = ref(AUTHTYPE.ADMIN)
 
     const setAuth = (newAuth) => {
         auth.value = newAuth

@@ -55,6 +55,12 @@ const items = ref([
         label: '排行榜',
         icon: 'pi pi-envelope',
         router: '/rank'
+    },
+    {
+        label: '管理',
+        icon: 'pi pi-cog',
+        router: '/admin',
+        admin: true
     }
 ])
 

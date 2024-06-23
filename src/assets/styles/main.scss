@@ -94,9 +94,6 @@
 
 .cm-editor {
     outline: none !important;
-}
-
-.cm-content {
-    min-width:40vh;
-    width: 100%;
+    width: 100% !important;
+    flex-grow: 1;
 }

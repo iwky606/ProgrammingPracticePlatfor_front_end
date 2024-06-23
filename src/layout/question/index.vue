@@ -1,5 +1,5 @@
 <template>
-    <div class="flex row align-center height-100 width-100 flex-1" @mousemove="handleMouseMove"
+    <div class="flex row align-center height-100 width-100 flex-1 question-layout" @mousemove="handleMouseMove"
         @mouseup="handleMouseUp">
         <div class="left" :style="`width: ${leftWidth}`">
             <slot name="left"></slot>

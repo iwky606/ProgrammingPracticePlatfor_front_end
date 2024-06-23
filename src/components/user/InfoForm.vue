@@ -1,8 +1,8 @@
 <template>
-    <div class="login-form flex col gap-3 pad">
+    <form class="login-form flex col gap-3 pad">
         <div class="line flex row gap-2 width-100">
             <FloatLabel class="padding-0 width-100">
-                <InputText id="username" v-model="username" class="width-100" />
+                <InputText id="username" v-model="username" placeholder="" class="width-100" />
                 <label for="username">用户名</label>
             </FloatLabel>
         </div>
@@ -14,11 +14,12 @@
         </div>
         <div class="line flex row gap-2 width-100" v-if="mode == 'register'">
             <FloatLabel class="padding-0 width-100">
-                <Password id="password" v-model="repassword" class="width-100 child-width-100" :feedback="false"/>
+                <Password id="password" v-model="repassword" class="width-100 child-width-100"
+                    :feedback="false" />
                 <label for="password">确认密码</label>
             </FloatLabel>
         </div>
-    </div>
+    </form>
     <div class="flex-grow-1"></div>
     <div class="buttons width-100" v-if="props.mode == 'login'">
         <Button label="登录" class="width-100" severity="contrast" @click="handleClick" />
@@ -39,7 +40,7 @@ import Password from 'primevue/password';
 import Button from 'primevue/button';
 import Line from '@/components/Line.vue';
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useGoto } from '@/hooks/useRouterUtil';
 import toast from '@/utils/toast';
 
@@ -72,6 +73,16 @@ const check = () => {
     return true;
 }
 
+const usernameValid = computed(() => {
+
+});
+const passwordValid = computed(() => {
+
+});
+const repasswordValid = computed(() => {
+
+});
+
 const handleClick = () => {
     if (check()) {
         let form = {
@@ -100,4 +111,10 @@ const handleClick = () => {
     padding: 0 20px;
 }
 
+form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
 </style>
