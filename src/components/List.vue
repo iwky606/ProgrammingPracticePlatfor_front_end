@@ -1,15 +1,8 @@
 <template>
     <DataTable :value="values" :loading="loading" stripedRows :scrollable="true" tableStyle="min-width: 50rem"
         @row-click="handleRowClick">
-        <!-- <Column field="user" header="用户名"></Column>
-        <Column field="accept" header="解题数"></Column>
-        <Column field="submit" header="提交次数"></Column>
-        <Column field="accuracy" header="正确率"></Column> -->
         <Column v-for="col in columns" :field="col.field" :header="col.header" :key="col.field"></Column>
     </DataTable>   
-
-    <Paginator :rows="row" :totalRecords="total" :rowsPerPageOptions="rowsPerPageOptions" @page="handlePageChange">
-    </Paginator>
 </template>
 
 <script setup>
@@ -35,20 +28,20 @@ const props = defineProps({
     },
     row: {
         type: Number,
-        required: true,
+        // required: true,
         default: 10
     },
     total: {
         type: Number,
-        required: true,
+        // required: true,
     },
     pageOptions: {
         type: Array,
-        required: true,
+        // required: true,
     },
     columns: {
         type: Array,
-        required: true,
+        // required: true,
     }
 })
 

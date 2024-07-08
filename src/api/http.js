@@ -19,27 +19,23 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
     (response) => {
-        let responseCode = response.data.code;
-        if (responseCode && responseCode != 20021) {
-            toast.error(response.data.message);
-            return Promise.reject(response);
+        // console.log('response: ', JSON.parse(JSON.stringify(response)));
+        // console.log(response.data.data.length)
+        if (response.data.message && response.data.message == 'ok') {
+            return response;
+        } else {
+            toast.error(response.data.message)
+            return Promise.reject(response.data.message)
         }
-        return response
     },
     (error) => {
-        if (error.code === 'ECONNABORTED' || error.message === "Network Error" || error.message.includes("timeout")) {
-            toast.error('请求超时, 请检查网络');
-        }
-        if (error.response.status == 401) {
-            toast.error('请先登录');
-            return Promise.reject(error.response);
-        }
 
-        return Promise.resolve(error.response)
+        return Promise.reject(error.response)
     }
 )   
 
 function post(url, params = {}) {
+    console.log(params);
     return new Promise((resolve, reject) => {
         http({
             url,

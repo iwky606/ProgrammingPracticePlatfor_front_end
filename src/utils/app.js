@@ -5,10 +5,12 @@ import VMdEditor from '@kangc/v-md-editor';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-json';
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import eventBus from 'vue3-eventbus'
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import Ripple from 'primevue/ripple';
 
 import App from '@/App.vue'
@@ -25,14 +27,8 @@ VMdPreview.use(vuepressTheme, {
 VMdEditor.use(vuepressTheme, {
     Prism,
 });
-
-app.use(createPinia())
 app.use(VMdPreview)
 app.use(VMdEditor)
-
-const auth = useAuthInfoStore()
-
-
 app.use(PrimeVue, {
     theme: {
         preset: Aura
@@ -40,17 +36,23 @@ app.use(PrimeVue, {
     ripple: true
 });
 app.use(ToastService);
+app.use(ConfirmationService);
 app.use(router)
+app.use(eventBus)
 
-
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate, {
+    expires: "1h"
+})
+app.use(pinia)
 router.beforeEach((to, from, next) => {
+    const auth = useAuthInfoStore()
     if (to.meta.requiresAuth && !auth.isAdmin) {
         next({ name: '404' })
         return
     }
     next()
 })
-console.log(router.getRoutes())
 
 app.directive('ripple', Ripple);
 

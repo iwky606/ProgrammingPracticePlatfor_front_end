@@ -4,7 +4,7 @@
             <Question :question="question" />
         </template>
         <template #right>
-            <Editor @submit="handleSubmission"/>
+            <Editor @submit="handleSubmission" />
         </template>
     </QuestionLayout>
 </template>
@@ -16,6 +16,8 @@ import Editor from '@/components/question/Editor.vue';
 
 import { onMounted, ref } from 'vue';
 import { useRouteParams } from '@/hooks/useRouterUtil';
+import api from '@/api';
+import toast from '@/utils/toast';
 
 const params = useRouteParams();
 const id = ref(-1);
@@ -26,49 +28,53 @@ const handleSubmission = (code, states) => {
     console.log(states);
 }
 
-const getQuestion = async (id) => {
-    // Fetch question from server
-    let q = `# This is a question ${id}
+const renderTitle = (title) => {
+    return `## 题目：${title}`;
+}
 
-## question description
+const renderInput = (input) => {
+    return `* 输入：${input}`;
+}
 
-Given an array of integers, return the sum of all the integers.
+const renderOutput = (output) => {
+    return `* 输出：${output}`;
+}
 
-You should write a function that takes an array of integers as input and returns the sum of all the integers.
+const renderSplit = () => {
+    return `---`;
+}
 
-## input
-
-- n: the number of integers in the array
-- a: an array of integers
-
-## output
-
-- the sum of all the integers
-
-## examples
-
-### example 1
-
+const renderExample = (input, output) => {
+    return `
 \`\`\`
-input: n = 3, a = [1, 2, 3]
-output: 6
+${renderInput(input)}
+${renderOutput(output)}
 \`\`\`
+    `;
+}
 
-### example 2
+const renderContent = (title, content, input, output) => {
+    return `
+${renderTitle(title)}
 
-\`\`\`
-input: n = 5, a = [1, 2, 3, 4, 5]
-output: 15
-\`\`\`
+${content}
 
-## constraints
-- 1 <= n <= 10^5
-- 1 <= a[i] <= 10^5
-## notes
-- this is a note
-- this is another note
+${renderSplit()}
+
+${renderExample(input, output)}
 `;
-    question.value = q;
+}
+
+const getQuestion = async (id) => {
+    api.questionApi.getQuestion(id).then(res => {
+        const title = res.data.data.title;
+        const { content, exampleInput: input, exampleOutput: output } = res.data.data.description;
+        question.value = renderContent(title, content, input, output);
+    }).catch(err => {
+        toast.error(err);
+        console.log(err);
+        question.value = `暂无数据!`;
+    })
 }
 
 onMounted(() => {
@@ -78,5 +84,4 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -10,22 +10,26 @@ import List from '@/components/List.vue';
 import { onMounted } from 'vue';
 
 import { useGoto } from '@/hooks/useRouterUtil';
+import { useBestRowNumber } from '@/hooks/useListUtil';
 
 import { ref } from 'vue';
+import bus from 'vue3-eventbus'
+import { onUnmounted } from 'vue';
+
+import api from '@/api';
+import toast from '@/utils/toast';
 
 const goto = useGoto();
 
-const row = ref(0);
+const row = ref(useBestRowNumber());
 const loading = ref(true);
 const values = ref([]);
 const total = ref(0);
 const pageOptions = ref([10, 20, 30])
+const page = ref(1);
 const columns = ref([
     { field: 'id', header: '编号' },
     { field: 'title', header: '题目' },
-    { field: 'level', header: '难度' },
-    { field: 'accuracy', header: '准确率' },
-    { field: 'process', header: '是否已完成' }
 ])
 
 const handlePageChange = (event) => {
@@ -39,24 +43,33 @@ const handleRowClick = (event) => {
     goto(`/question/${event.id}`);
 }
 
-const getQuestions = (page = 1, rows = 10) => {
-    row.value = rows;
-    values.value = [];
-    for (let i = 1; i <= rows; i++) {
-        values.value.push({
-            id: i,
-            title: '题目' + i,
-            level: Math.floor(Math.random() * 3),
-            accuracy: Math.floor(Math.random() * 100) + '%',
-            process: Math.random() > 0.5 ? '是' : '否'
-        });
-    }
+const getQuestions = () => {
+    api.questionApi.getQuestions({
+        "pageNum": page.value,
+        "pageSize": row.value
+    }).then(res => {
+        values.value = values.value.concat(res.data.data);
+        page.value++;
+        console.log(res);
+    }).catch(err => {
+        toast.error(err);
+    })
 }
+
+
 
 onMounted(() => {
     getQuestions();
     total.value = 100 * 6;
     loading.value = false;
+    bus.on('scroll-to-bottom', () => {
+        // console.log('scroll-to-bottom');
+        getQuestions();
+    })
+})
+
+onUnmounted(() => {
+    bus.off('scroll-to-bottom');
 })
 </script>
 

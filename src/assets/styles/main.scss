@@ -25,6 +25,14 @@
     justify-content: center;
 }
 
+.flex-grow {
+    flex-grow: 1;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
 // 动态生成gap-1到gap-10的样式
 @for $i from 1 through 10 {
     .gap-#{$i} {
@@ -100,4 +108,13 @@
 
 .p-menubar-submenu {
     z-index: 999 !important;
+}
+
+.v-md-editor-preview,
+.vuepress-markdown-body {
+    width: 100% !important;
+}
+
+.space-between {
+    justify-content: space-between;
 }

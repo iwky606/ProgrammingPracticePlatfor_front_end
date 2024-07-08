@@ -21,6 +21,14 @@ export default defineConfig({
         additionalData: '@import "@/assets/styles/base.scss";'
       }
     }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://ppp.oneq.cc/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
-
 })

@@ -1,7 +1,11 @@
-import test from "./test";
+import userApi from "./user";
+import questionApi from "./question";
+import questionSetApi from "./questionset";
 
 const api = {
-    test
+    userApi,
+    questionApi,
+    questionSetApi
 };
 
 export default api;

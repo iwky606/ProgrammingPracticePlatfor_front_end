@@ -22,6 +22,7 @@ const text = computed(() => props.question);
     display: flex;
     flex-direction: row;
     height: 100%;
+    width: 100%;
     border: #5556562f solid 1px;
     border-radius: 5px;
 

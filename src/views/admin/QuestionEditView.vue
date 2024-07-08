@@ -1,6 +1,5 @@
 <template>
     <Button icon="pi pi-angle-left" aria-label="返回" severity="contrast" class="back" @click="back"/>
-    <QuestionEdit />
 </template>
 
 <script setup>

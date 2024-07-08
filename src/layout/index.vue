@@ -18,6 +18,8 @@
 import Toast from 'primevue/toast';
 import Navbar from './Navbar.vue';
 import ScrollArea from '@/components/ScrollArea.vue';
+
+const emit = defineEmits(['scroll-to-bottom']);
 </script>
 
 <style lang="scss" scoped>

@@ -23,7 +23,8 @@
                     <Button @click="goto('/login')" :severity="loginBtn" class="login-btn" label="登录"
                         @mouseenter="loginBtn = 'contrast'" @mouseleave="loginBtn = 'secondary'"></Button>
                 </div>
-                <Avatar class="cursor" @click="goto('/user')" v-else />
+                <Avatar class="cursor" @contextmenu="onAvatarClicked" @click="onAvatarClicked" v-else />
+                <ContextMenu ref="menu" :model="contextmenu" />
             </div>
         </template>
     </Menubar>
@@ -41,6 +42,7 @@ import Logo from '@/assets/icons/Logo.vue';
 import Menubar from 'primevue/menubar';
 import InputText from 'primevue/inputtext';
 import Avatar from '@/assets/icons/Avatar.vue';
+import ContextMenu from 'primevue/contextmenu';
 
 const items = ref([
     {
@@ -54,10 +56,15 @@ const items = ref([
         router: '/questions'
     },
     {
-        label: '排行榜',
+        label: '提交记录',
         icon: 'pi pi-envelope',
-        router: '/rank'
+        router: '/submission'
     },
+    // {
+    //     label: '排行榜',
+    //     icon: 'pi pi-envelope',
+    //     router: '/rank'
+    // },
     {
         label: '管理',
         icon: 'pi pi-cog',
@@ -79,11 +86,36 @@ const items = ref([
     }
 ])
 
+const contextmenu = [
+    // {
+    //     label: '个人中心',
+    //     icon: 'pi pi-user',
+    //     command: () => goto('/user')
+    // },
+    {
+        label: '退出登录',
+        icon: 'pi pi-sign-out',
+        command: () => handleLogout()
+    }
+]
+
+// const emit = defineEmits(['logout'])
+
 const goto = useGoto();
 const auth = useAuthInfoStore();
 
 const loginBtn = ref("secondary")
 const registerBtn = ref("contrast")
+const menu = ref(null);
+
+const onAvatarClicked = (params) => {
+    menu.value.toggle(params);
+}
+
+const handleLogout = () => {
+    // emit('logout');  
+    auth.logout()  
+}
 
 </script>
 

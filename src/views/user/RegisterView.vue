@@ -15,12 +15,28 @@ import Logo from '@/assets/icons/Logo.vue';
 
 import { useAuthInfoStore } from '@/stores/auth';
 import { useGoto } from '@/hooks/useRouterUtil';
+import { onMounted } from 'vue';
 
 const auth = useAuthInfoStore();
 const goto = useGoto();
 
+onMounted(() => {
+    if (!auth.isGuest) {
+        goto('/');
+    }
+})
+
 const handleClick = (form) => {
-    console.log(form);
+    const { username, password, repassword } = form;
+    const params = {
+        username,
+        password,
+        "checkPassword": repassword,
+        "auth": "STUDENT"
+    };
+    auth.register(params, () => {
+        goto('/');
+    });
 }
 </script>
 

@@ -10,6 +10,7 @@ import AdminView from "@/views/admin/index.vue";
 import AdminQuestionEditView from "@/views/admin/QuestionEditView.vue";
 import AdminQuestionView from "@/views/admin/QuestionView.vue";
 import AdminQuestionSetView from "@/views/admin/QuestionSetView.vue";
+import SubmissionView from "@/views/submission/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +49,11 @@ const router = createRouter({
       path: '/question/:id',
       name: 'QuestionDetail',
       component: QuestionView
+    },
+    {
+      path: '/submission',
+      name: 'Submission',
+      component: SubmissionView,
     },
     {
       path: '/admin',

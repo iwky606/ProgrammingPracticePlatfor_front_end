@@ -8,14 +8,13 @@
         </div>
         <div class="line flex row gap-2 width-100">
             <FloatLabel class="padding-0 width-100">
-                <Password id="password" v-model="password" class="width-100 child-width-100" />
+                <Password id="password" v-model="password" :feedback="mode == 'register'" class="width-100 child-width-100" />
                 <label for="password">密码</label>
             </FloatLabel>
         </div>
         <div class="line flex row gap-2 width-100" v-if="mode == 'register'">
             <FloatLabel class="padding-0 width-100">
-                <Password id="password" v-model="repassword" class="width-100 child-width-100"
-                    :feedback="false" />
+                <Password id="password" v-model="repassword" class="width-100 child-width-100" :feedback="false" />
                 <label for="password">确认密码</label>
             </FloatLabel>
         </div>
@@ -61,6 +60,8 @@ const goto = useGoto();
 
 const check = () => {
     if (username.value == '' || password.value == '') {
+        if (username.value == '')
+        if (password.value == '')
         toast.warn('用户名或密码不能为空');
         return false;
     }
@@ -72,16 +73,6 @@ const check = () => {
     }
     return true;
 }
-
-const usernameValid = computed(() => {
-
-});
-const passwordValid = computed(() => {
-
-});
-const repasswordValid = computed(() => {
-
-});
 
 const handleClick = () => {
     if (check()) {
