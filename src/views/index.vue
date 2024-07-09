@@ -11,6 +11,14 @@
 <script setup>
 import { RouterView } from 'vue-router';
 import Skeleton from 'primevue/skeleton';
+import { useGoto } from '@/hooks/useRouterUtil';
+import { onMounted } from 'vue';
+
+const goto = useGoto();
+
+onMounted(() => {
+    goto('/questions');
+});
 </script>
 
 <style lang="scss" scoped>

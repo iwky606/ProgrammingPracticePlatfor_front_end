@@ -1,7 +1,8 @@
 <template>
     <div class="editor-container">
         <div class="tool-box">
-            Tool Bar
+            <span>语言：</span>
+            <Select v-model="lang" :options="langOption"/>
         </div>
         <codemirror v-model="code" placeholder="在此写下代码..." :autofocus="true" class="height-100 width-100 code-mirror"
             :indent-with-tab="true" :tab-size="4" @ready="handleReady" />
@@ -11,12 +12,13 @@
             <Button label="提交" severity="contrast" @click="handleSubmission"></Button>
         </div>
     </div>
-</template>
+</template >
 
 <script setup>
 import { ref, shallowRef } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import Button from 'primevue/button';
+import Select from 'primevue/select';
 
 const emit = defineEmits(['submit'])
 
@@ -26,6 +28,15 @@ const view = shallowRef()
 const handleReady = (payload) => {
     view.value = payload.view
 }
+
+const lang = ref('JAVA8')
+
+const langOption = [
+    'CPP20',
+    'JAVA8',
+    'JAVA17',
+    'PYTHON3',
+]
 
 const getCodemirrorStates = () => {
     const state = view.value.state
@@ -46,7 +57,8 @@ const getCodemirrorStates = () => {
 
 const handleSubmission = () => {
     const states = getCodemirrorStates()
-    emit('submit', code, states)
+    const processedCode = states.state.doc.text.map((line) => line.trim()).join('');
+    emit('submit', processedCode, lang.value)
 }
 
 </script>
@@ -66,7 +78,7 @@ const handleSubmission = () => {
 }
 
 .tool-box {
-    height: 40px;
+    height: 60px;
     width: 100%;
     border-bottom: 1px solid #5556562f;
 
