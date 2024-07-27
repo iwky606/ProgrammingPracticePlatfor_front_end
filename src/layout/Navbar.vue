@@ -5,7 +5,7 @@
         </template>
         <template #item="{ item, props }">
             <a v-ripple class="flex items-center" v-bind="props.action"
-                @click="() => { if (item.router) goto(item.router) }"
+                @click="handleItemClick(item)"
                 v-if="!item.admin || (item.admin && auth.isAdmin)">
                 <i :class="item.icon" style=""></i>
                 <span class=" ml-2">{{ item.label }}</span>
@@ -60,11 +60,6 @@ const items = ref([
         icon: 'pi pi-envelope',
         router: '/submission'
     },
-    // {
-    //     label: '排行榜',
-    //     icon: 'pi pi-envelope',
-    //     router: '/rank'
-    // },
     {
         label: '管理',
         icon: 'pi pi-cog',
@@ -83,6 +78,11 @@ const items = ref([
                 router: '/admin/set'
             }
         ]
+    },
+    {
+        icon: 'pi pi-github',
+        label: 'GitHub',
+        href: "https://github.com/iwky606/ProgrammingPracticePlatform"
     }
 ])
 
@@ -117,6 +117,10 @@ const handleLogout = () => {
     auth.logout()  
 }
 
+const handleItemClick = (item) => {
+    if (item.router) goto(item.router);
+    else if (item.href) window.open(item.href, '_blank');
+}
 </script>
 
 <style lang="scss" scoped>
