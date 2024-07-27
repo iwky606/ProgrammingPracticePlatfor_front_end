@@ -57,7 +57,21 @@ const getCodemirrorStates = () => {
 
 const handleSubmission = () => {
     const states = getCodemirrorStates()
-    const processedCode = states.state.doc.text.map((line) => line.trim()).join('');
+    console.log('states', states);
+    const lines = []
+    if (states.state.doc.text) {
+        states.state.doc.text.forEach((line) => {
+            lines.push(line.trim())
+        })
+    } else {
+        for (let i = 0; i < states.state.doc.children.length; i++) {
+            for (let j = 0; j < states.state.doc.children[i].text.length; j++) {
+                lines.push(states.state.doc.children[i].text[j].trim())
+            }
+        }
+    }
+    console.log(states)
+    const processedCode = lines.map((line) => line.trim()).join('');
     emit('submit', processedCode, lang.value)
 }
 
@@ -74,6 +88,7 @@ const handleSubmission = () => {
 
     .code-mirror {
         flex-grow: 1;
+        overflow-y: auto;
     }
 }
 
@@ -98,5 +113,9 @@ const handleSubmission = () => {
     align-items: center;
     justify-content: right;
     padding-right: 20px;
+}
+
+:deep(.cm-editor) {
+    overflow-y: auto;
 }
 </style>
